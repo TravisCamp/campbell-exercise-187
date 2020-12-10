@@ -1,0 +1,58 @@
+//AUTHOR: Travis Campbell
+//COURSE: CPT 187
+//PURPOSE: The written order of a customer's transaction with a store or service, typically on a receipt.
+//STARTDATE: 12/3/2020
+
+package edu.cpt187.campbell.exercise6;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+
+public class WriteOrder 
+{
+	private boolean fileFoundFlag = false; //Declaration of class variables
+	private String masterFileName = "";
+	private int recordCount = 0;
+	
+	
+	public WriteOrder(String borrowedFileName) //Non-default class constructor initialization
+	{
+		masterFileName = borrowedFileName; //Sets masterFileName to borrowed parameter
+	} //End of class constructor
+	
+	public void setWriteOrder(int borrowedItemID, String borrowedItemName, double borrowedItemPrice, int borrowedQuantity, double borrowedOrderCost) //Initialization of setter with borrowed parameters
+	{
+		try
+		{
+			PrintWriter filePW = new PrintWriter(new FileWriter(masterFileName, true)); //Initialization of filePW with printWriter and fileWriter IO parameters, set to false
+			
+			fileFoundFlag = true; //If file is accessed, sets fileFoundFlag to true
+			
+			filePW.printf("%n%-2d\t%-2s\t%-1.2f\t%-1d\t%-1.2f", borrowedItemID, borrowedItemName, borrowedItemPrice, borrowedQuantity, borrowedOrderCost); //Print formatting for record with borrowed parameters
+			
+			recordCount++; //Increments recordCount
+			
+			filePW.close(); //Closes print writer
+		} //End of try statement
+		
+		catch (IOException ex) //Occurs if file access failed
+		{
+			fileFoundFlag = false; //Sets fileFoundFlag to false
+		} //End of catch statement
+	} //End of setter
+	
+	public boolean getFileFoundFlag() //Initialization of getter, returns boolean
+	{
+		return fileFoundFlag; //Returns fileFoundFlag
+	} //End of getter
+	
+	public String getFileName() //Initialization of getter, returns String
+	{
+		return masterFileName; //Returns masterFileName
+	} //End of getter
+	
+	public int getRecordCount() //Initialization of getter, returns int
+	{
+		return recordCount; //Returns recordCount
+	} //End of getter
+} //End of WriteOrder class
